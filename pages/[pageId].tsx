@@ -1,8 +1,9 @@
+import { domain, isDev } from 'lib/config'
+
+import { NotionPage } from 'components'
 import React from 'react'
-import { isDev, domain } from 'lib/config'
 import { getSiteMaps } from 'lib/get-site-maps'
 import { resolveNotionPage } from 'lib/resolve-notion-page'
-import { NotionPage } from 'components'
 
 export const getStaticProps = async (context) => {
   const rawPageId = context.params.pageId as string
@@ -17,6 +18,12 @@ export const getStaticProps = async (context) => {
     }
 
     const props = await resolveNotionPage(domain, rawPageId)
+
+    if (props.error) {
+      if (props.error.statusCode === 404) {
+        return { notFound: true }
+      }
+    }
 
     return { props, revalidate: 10 }
   } catch (err) {
