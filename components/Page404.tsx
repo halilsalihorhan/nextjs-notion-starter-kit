@@ -11,9 +11,11 @@ export const Page404: React.FC<types.PageProps> = ({ site, pageId, error }) => {
   const title = site?.name || 'Notion Page Not Found'
   const router = useRouter()
 
-  setTimeout(() => {
-    router.push('/')
-  }, 5000)
+  React.useEffect(() => {
+    setTimeout(() => {
+      router.push('/')
+    }, 5000)
+  }, [])
 
   return (
     <>
