@@ -38,6 +38,8 @@ import { ReactUtterances } from './ReactUtterances'
 
 import styles from './styles.module.css'
 
+import InnerHTML from 'dangerously-set-html-content'
+
 // const Code = dynamic(() =>
 //   import('react-notion-x').then((notion) => notion.Code)
 // )
@@ -246,7 +248,26 @@ export const NotionPage: React.FC<types.PageProps> = ({
               <a {...props} />
             </Link>
           ),
-          code: Code,
+          code: ({ code, language }: { code: string; language: string }) => {
+            if (
+              language === 'HTML' &&
+              code
+                .trimLeft()
+                .startsWith(process.env.NEXT_PUBLIC_RENDER_RAW_HTML_TAG)
+            ) {
+              return (
+                <InnerHTML
+                  style={{ width: '100%' }}
+                  html={code.replace(
+                    process.env.NEXT_PUBLIC_RENDER_RAW_HTML_TAG,
+                    ''
+                  )}
+                />
+              )
+            } else {
+              return <Code code={code} language={language} />
+            }
+          },
           collection: Collection,
           collectionRow: CollectionRow,
           tweet: Tweet,
