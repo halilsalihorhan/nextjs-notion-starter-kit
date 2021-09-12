@@ -50,7 +50,9 @@ All you really need to do to get started is edit `rootNotionPageId`. It defaults
 
 You'll want to make your root Notion page **public** and then copy the link to your clipboard. Then extract the last part of the URL that looks like `d1b5dcf8b9ff425b8aef5ce6f0730202`, which is your page's Notion iD.
 
-I recommend setting up a collection on your home page (I use an inline gallery [here](https://notion.so/78fc5a4b88d74b0e824e29407e9f1ec1)) that contains all of your articles / projects / content. There are no structural constraints on your Notion workspace, however, so feel free to add content as you would normally in Notion. There are a few parts of the code with logic to only show comments on blog post pages (collection item detail pages).
+In order to find your Notion workspace ID (optional), just load any of your site's pages into your browser and open up the developer console. There will be a global variable that you can access called `block` which is the Notion data for the current page, and you just have to type `block.space_id` which will print out your page's workspace ID.
+
+I recommend setting up a collection on your home page (optional; I use an inline gallery [here](https://notion.so/78fc5a4b88d74b0e824e29407e9f1ec1)) that contains all of your articles / projects / content. There are no structural constraints on your Notion workspace, however, so feel free to add content as you would normally in Notion. There are a few parts of the code with logic to only show comments on blog post pages (collection item detail pages).
 
 ## URL Paths
 
@@ -140,17 +142,6 @@ The actual work happens in the [create-preview-image](./api/create-preview-image
 </p>
 
 Open Graph images like this one will be generated for each page of your site automatically based each page's content.
-
-By default, it takes into account:
-
-- cover image (falling back to a default site-wide cover image)
-- page icon (falling back to a default site-wide icon)
-- page title
-- page subtitle (optional; pulled from the "Description" property of collection pages)
-
-This feature works by rendering some custom HTML to a [Puppeteer](https://pptr.dev) instance in this [serverless function](./api/render-social-image/[pageId].ts) that takes in the page ID as input.
-
-Here's an example of a social image URL in production: [/api/render-social-image/71201624b204481f862630ea25ce62fe](https://transitivebullsh.it/api/render-social-image/71201624b204481f862630ea25ce62fe)
 
 Note that you shouldn't have to do anything extra to enable this feature as long as you're deploying to Vercel.
 
