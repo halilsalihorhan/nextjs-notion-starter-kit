@@ -26,6 +26,9 @@ import 'styles/notion.css'
 // global style overrides for prism theme (optional)
 import 'styles/prism-theme.css'
 
+// used for collection views (optional)
+import 'rc-dropdown/assets/index.css'
+
 // here we're bringing in any languages we want to support for
 // syntax highlighting via Notion's Code block
 import 'prismjs'
@@ -33,6 +36,9 @@ import 'prismjs/components/prism-markup'
 import 'prismjs/components/prism-javascript'
 import 'prismjs/components/prism-typescript'
 import 'prismjs/components/prism-bash'
+
+// used for code syntax highlighting (optional)
+import 'prismjs/themes/prism-tomorrow.css'
 
 import React from 'react'
 import { useRouter } from 'next/router'
