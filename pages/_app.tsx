@@ -11,8 +11,7 @@ import 'prismjs/themes/prism-coy.css'
 // import 'prismjs/themes/prism-okaidia.css'
 
 // used for collection views selector (optional)
-// TODO: re-add if we enable collection view dropdowns
-// import 'rc-dropdown/assets/index.css'
+import 'rc-dropdown/assets/index.css'
 
 // used for rendering equations (optional)
 import 'katex/dist/katex.min.css'
@@ -26,11 +25,9 @@ import 'styles/notion.css'
 // global style overrides for prism theme (optional)
 import 'styles/prism-theme.css'
 
-// used for collection views (optional)
-import 'rc-dropdown/assets/index.css'
-
-// here we're bringing in any languages we want to support for
-// syntax highlighting via Notion's Code block
+// import any languages we want to support for syntax highlighting via Notion's
+// Code block and prismjs
+// import 'prismjs/components/prism-typescript'
 import 'prismjs'
 import 'prismjs/components/prism-markup'
 import 'prismjs/components/prism-javascript'
@@ -54,12 +51,12 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
 
   React.useEffect(() => {
+    function onRouteChangeComplete() {
+      Fathom.trackPageview()
+    }
+
     if (fathomId) {
       Fathom.load(fathomId, fathomConfig)
-
-      function onRouteChangeComplete() {
-        Fathom.trackPageview()
-      }
 
       router.events.on('routeChangeComplete', onRouteChangeComplete)
 
@@ -67,7 +64,7 @@ export default function App({ Component, pageProps }) {
         router.events.off('routeChangeComplete', onRouteChangeComplete)
       }
     }
-  }, [])
+  }, [router.events])
 
   return <Component {...pageProps} />
 }

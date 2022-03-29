@@ -1,7 +1,6 @@
-module.exports = {
+export default {
   // where it all starts -- the site's root Notion page (required)
   rootNotionPageId: process.env.NEXT_PUBLIC_rootNotionPageId,
-
   // if you want to restrict pages to a single notion workspace (optional)
   // (this should be a Notion ID; see the docs for how to extract this)
   rootNotionSpaceId: process.env.NEXT_PUBLIC_rootNotionSpaceId || null,
@@ -29,17 +28,13 @@ module.exports = {
     process.env.NEXT_PUBLIC_defaultPageCoverPosition
   ),
 
-  // image CDN host to proxy all image requests through (optional)
-  // NOTE: this requires you to set up an external image proxy
-  imageCDNHost: process.env.NEXT_PUBLIC_imageCDNHost || null,
-
-  // Utteranc.es comments via GitHub issue comments (optional)
-  utterancesGitHubRepo: process.env.NEXT_PUBLIC_utterancesGitHubRepo || null,
-
   // whether or not to enable support for LQIP preview images (optional)
-  // NOTE: this requires you to set up Google Firebase and add the environment
-  // variables specified in .env.example
-  isPreviewImageSupportEnabled: false,
+  isPreviewImageSupportEnabled: true,
+
+  // whether or not redis is enabled for caching generated preview images (optional)
+  // NOTE: if you enable redis, you need to set the `REDIS_HOST` and `REDIS_PASSWORD`
+  // environment variables. see the readme for more info
+  isRedisEnabled: false,
 
   // map of notion page IDs to URL paths (optional)
   // any pages defined here will override their default URL paths
